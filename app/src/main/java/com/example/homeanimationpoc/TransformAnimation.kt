@@ -1,8 +1,11 @@
 package com.example.homeanimationpoc
 
 import android.view.View
+import android.view.animation.Animation
 
 interface TransformAnimation {
-    fun upTransform(view: View)
-    fun downTransform(view: View)
+    fun transformUp(view: View)
+    fun transformDown(view: View)
+    fun getUpAnimation(): Animation
+    fun getDownAnimation(): Animation
 }
