@@ -4,13 +4,14 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.Display
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.view.isVisible
+import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-
 
 class MainActivity : AppCompatActivity() {
     val list: RecyclerView by lazy { findViewById(R.id.listHome) }
@@ -19,6 +20,11 @@ class MainActivity : AppCompatActivity() {
     val card2: CardView by lazy { findViewById(R.id.secondCard) }
     val card3: CardView by lazy { findViewById(R.id.thirdCard) }
     val card4: CardView by lazy { findViewById(R.id.fourthCard) }
+
+    val listItems: RecyclerView by lazy { findViewById(R.id.listItem) }
+
+    val nsList: NestedScrollView by lazy { findViewById(R.id.nsList) }
+    val header: FrameLayout by lazy { findViewById(R.id.include) }
 
     val widthDp by lazy { resources.configuration.screenWidthDp }
     val heightDp by lazy { resources.configuration.screenHeightDp }
@@ -43,7 +49,7 @@ class MainActivity : AppCompatActivity() {
             card1.translationX,
             -(screenWidth - card1.measuredWidth + 30).toFloat(),
             card1.translationY,
-            -(card1.measuredHeight + 50 + (card1.measuredHeight / 3f))//((card1.height / 2f) + card1.height + 16)
+            -(card1.measuredHeight + 50 + (card1.measuredHeight / 3f))
         ) { card1.isVisible = true }
     }
 
@@ -83,6 +89,48 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        listItems.adapter = RecycleViewItem()
+        listItems.isNestedScrollingEnabled = false
+
+        nsList.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+            if (scrollY > oldScrollY) {
+                header.translationY = header.translationY + 10
+                header.scaleX = 0.8f
+
+                if (scrollY >= ( v.measuredHeight - v.getChildAt(0).measuredHeight)) {
+                    animationSet1.transformUp(card1)
+                    animationSet2.transformUp(card2)
+                    animationSet3.transformUp(card3)
+                    animationSet4.transformUp(card4)
+
+                    transformAlphaAnimation.transformDown(fab)
+
+                    isUpTransform = false
+                }
+            }
+
+            if (scrollY < oldScrollY) {
+                if (!isUpTransform) {
+                    animationSet1.transformDown(card1)
+                    animationSet2.transformDown(card2)
+                    animationSet3.transformDown(card3)
+                    animationSet4.transformDown(card4)
+
+                    transformAlphaAnimation.transformUp(fab)
+
+                    isUpTransform = true
+                }
+            }
+
+            if (scrollY == 0) {
+                //Log.i(TAG, "TOP SCROLL")
+            }
+
+            if (scrollY == ( v.measuredHeight - v.getChildAt(0).measuredHeight)) {
+                //Log.i(TAG, "BOTTOM SCROLL")
+            }
+        })
 
         card1.setOnClickListener {
             transformAlphaAnimation.transformUp(fab)
