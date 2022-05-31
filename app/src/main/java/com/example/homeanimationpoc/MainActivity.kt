@@ -1,9 +1,8 @@
 package com.example.homeanimationpoc
 
-import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.view.Display
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
@@ -11,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
@@ -22,6 +22,8 @@ class MainActivity : AppCompatActivity() {
     val card4: CardView by lazy { findViewById(R.id.fourthCard) }
 
     val listItems: RecyclerView by lazy { findViewById(R.id.listItem) }
+
+    val collToolbar: CollapsingToolbarLayout by lazy { findViewById(R.id.collapsing_toolbar_layout) }
 
     val nsList: NestedScrollView by lazy { findViewById(R.id.nsList) }
     val header: FrameLayout by lazy { findViewById(R.id.include) }
@@ -89,17 +91,19 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.plan_b)
+
+        collToolbar.setContentScrimColor(Color.LTGRAY)
 
         listItems.adapter = RecycleViewItem()
         listItems.isNestedScrollingEnabled = false
 
         nsList.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
             if (scrollY > oldScrollY) {
-                header.translationY = header.translationY + (scrollY - oldScrollY) + 2
-                header.scaleX = 0.9f
-
-                if (scrollY >= ( v.measuredHeight - v.getChildAt(0).measuredHeight)) {
+//                header.translationY = header.translationY + (scrollY - oldScrollY) + 2
+//                header.scaleX = 0.9f
+//
+//                if (scrollY >= ( v.measuredHeight - v.getChildAt(0).measuredHeight)) {
 //                    animationSet1.transformUp(card1)
 //                    animationSet2.transformUp(card2)
 //                    animationSet3.transformUp(card3)
@@ -108,11 +112,11 @@ class MainActivity : AppCompatActivity() {
 //                    transformAlphaAnimation.transformDown(fab)
 //
 //                    isUpTransform = false
-                }
+//                }
             }
 
             if (scrollY < oldScrollY) {
-                header.translationY = header.translationY + (scrollY - oldScrollY) - 2
+                //header.translationY = header.translationY + (scrollY - oldScrollY) - 2
 
                 if (!isUpTransform) {
                     animationSet1.transformDown(card1)

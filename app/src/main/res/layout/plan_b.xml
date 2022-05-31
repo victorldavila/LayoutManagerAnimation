@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".MainActivity"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleGravity="top"
+            app:expandedTitleMarginStart="48dp"
+            app:expandedTitleMarginEnd="64dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <FrameLayout
+                android:id="@+id/flHeader"
+                android:background="@android:color/holo_orange_light"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.7" />
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"/>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listHome"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_card_list" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nsList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <include
+                    android:id="@+id/icList"
+                    layout="@layout/custom_list"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <FrameLayout
+                    android:id="@+id/flFooter"
+                    android:background="@android:color/white"
+                    android:layout_width="0dp"
+                    android:layout_height="400dp"
+                    app:layout_constraintTop_toBottomOf="@+id/icList"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:alpha="1"
+            app:backgroundTint="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/firstCard"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="16dp"
+            android:backgroundTint="@android:color/darker_gray"
+            android:visibility="invisible"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/fab"
+            app:layout_constraintEnd_toEndOf="@+id/fab"
+            app:layout_constraintStart_toStartOf="@+id/fab"
+            app:layout_constraintTop_toTopOf="@+id/fab" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/secondCard"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="16dp"
+            android:backgroundTint="@android:color/darker_gray"
+            app:cardCornerRadius="25dp"
+            android:visibility="invisible"
+            app:cardElevation="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/fab"
+            app:layout_constraintEnd_toEndOf="@+id/fab"
+            app:layout_constraintStart_toStartOf="@+id/fab"
+            app:layout_constraintTop_toTopOf="@+id/fab" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/thirdCard"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="16dp"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="5dp"
+            android:visibility="invisible"
+            android:backgroundTint="@android:color/darker_gray"
+            app:layout_constraintBottom_toBottomOf="@+id/fab"
+            app:layout_constraintEnd_toEndOf="@+id/fab"
+            app:layout_constraintStart_toStartOf="@+id/fab"
+            app:layout_constraintTop_toTopOf="@+id/fab" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/fourthCard"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="16dp"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="5dp"
+            android:visibility="invisible"
+            android:backgroundTint="@android:color/darker_gray"
+            app:layout_constraintBottom_toBottomOf="@+id/fab"
+            app:layout_constraintEnd_toEndOf="@+id/fab"
+            app:layout_constraintStart_toStartOf="@+id/fab"
+            app:layout_constraintTop_toTopOf="@+id/fab" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
