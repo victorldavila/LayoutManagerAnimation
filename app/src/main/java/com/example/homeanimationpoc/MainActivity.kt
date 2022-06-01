@@ -100,19 +100,7 @@ class MainActivity : AppCompatActivity() {
 
         nsList.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
             if (scrollY > oldScrollY) {
-//                header.translationY = header.translationY + (scrollY - oldScrollY) + 2
-//                header.scaleX = 0.9f
-//
-//                if (scrollY >= ( v.measuredHeight - v.getChildAt(0).measuredHeight)) {
-//                    animationSet1.transformUp(card1)
-//                    animationSet2.transformUp(card2)
-//                    animationSet3.transformUp(card3)
-//                    animationSet4.transformUp(card4)
-//
-//                    transformAlphaAnimation.transformDown(fab)
-//
-//                    isUpTransform = false
-//                }
+
             }
 
             if (scrollY < oldScrollY) {
